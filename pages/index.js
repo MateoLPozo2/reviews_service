@@ -1,18 +1,30 @@
-import { useState } from 'react';
-import Link from 'next/link';
-import reviews from '@/data/reviews';
+import { useState } from "react";
+import Link from "next/link";
+import reviews from "@/data/reviews";
+import Fuse from "fuse.js"; // 🔍 Fuse.js import
 
 export default function Home() {
   const [selectedTag, setSelectedTag] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const uniqueTags = [...new Set(reviews.flatMap((r) => r.labels))];
-
-  const filteredReviews = reviews.filter((r) => {
-    const matchesTag = selectedTag ? r.labels.includes(selectedTag) : true;
-    const matchesSearch = r.title.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesTag && matchesSearch;
+  const fuse = new Fuse(reviews, {
+    keys: ["title", "authors", "content"],
+    threshold: 0.3,
   });
+
+  const rawResults = searchQuery
+    ? fuse.search(searchQuery)
+    : reviews.map((r) => ({ item: r }));
+
+  const filteredReviews = rawResults
+    .map((r) => r.item)
+    .filter((r) => (selectedTag ? r.labels.includes(selectedTag) : true));
+
+  function highlightMatch(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query})`, "gi");
+    return text.replace(regex, "<mark>$1</mark>");
+  }
 
   return (
     <div className="min-h-screen p-6">
@@ -33,8 +45,8 @@ export default function Home() {
           onClick={() => setSelectedTag(null)}
           className={`px-3 py-1 rounded-full text-sm ${
             selectedTag === null
-              ? 'bg-black text-white'
-              : 'bg-gray-200 hover:bg-gray-300'
+              ? "bg-black text-white"
+              : "bg-gray-200 hover:bg-gray-300"
           }`}
         >
           All
@@ -45,8 +57,8 @@ export default function Home() {
             onClick={() => setSelectedTag(tag)}
             className={`px-3 py-1 rounded-full text-sm capitalize ${
               selectedTag === tag
-                ? 'bg-black text-white'
-                : 'bg-gray-200 hover:bg-gray-300'
+                ? "bg-black text-white"
+                : "bg-gray-200 hover:bg-gray-300"
             }`}
           >
             {tag}
@@ -62,9 +74,18 @@ export default function Home() {
               href={`/mlp/reviews/${review.nid}/${review.slug}`}
               className="text-blue-600 hover:underline"
             >
-              {review.title}
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: highlightMatch(review.title, searchQuery),
+                }}
+              />
             </Link>
-            <p className="text-sm text-gray-600">{review.authors}</p>
+            <p
+              className="text-sm text-gray-600"
+              dangerouslySetInnerHTML={{
+                __html: highlightMatch(review.authors, searchQuery),
+              }}
+            />
             <div className="flex flex-wrap gap-1 mt-1">
               {review.labels.map((label) => (
                 <span
