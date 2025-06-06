@@ -4,17 +4,30 @@ import reviews from '@/data/reviews';
 
 export default function Home() {
   const [selectedTag, setSelectedTag] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const uniqueTags = [...new Set(reviews.flatMap(r => r.labels))];
+  const uniqueTags = [...new Set(reviews.flatMap((r) => r.labels))];
 
-  const filteredReviews = selectedTag
-    ? reviews.filter(r => r.labels.includes(selectedTag))
-    : reviews;
+  const filteredReviews = reviews.filter((r) => {
+    const matchesTag = selectedTag ? r.labels.includes(selectedTag) : true;
+    const matchesSearch = r.title.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesTag && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen p-6">
       <h1 className="text-3xl font-bold mb-6">All Reviews</h1>
 
+      {/* Search bar */}
+      <input
+        type="text"
+        placeholder="Search by title..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full max-w-md mb-4 px-3 py-2 border border-gray-300 rounded shadow-sm"
+      />
+
+      {/* Tag filter */}
       <div className="mb-6 flex flex-wrap gap-2">
         <button
           onClick={() => setSelectedTag(null)}
@@ -41,6 +54,7 @@ export default function Home() {
         ))}
       </div>
 
+      {/* Review list */}
       <ul className="space-y-4">
         {filteredReviews.map((review) => (
           <li key={review.nid} className="border-b pb-2">
