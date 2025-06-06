@@ -26,6 +26,10 @@ export default function Home() {
     return text.replace(regex, "<mark>$1</mark>");
   }
 
+  const uniqueTags = [
+    ...new Set(filteredReviews.flatMap((r) => r.labels)),
+  ];
+
   return (
     <div className="min-h-screen p-6">
       <h1 className="text-3xl font-bold mb-6">All Reviews</h1>
