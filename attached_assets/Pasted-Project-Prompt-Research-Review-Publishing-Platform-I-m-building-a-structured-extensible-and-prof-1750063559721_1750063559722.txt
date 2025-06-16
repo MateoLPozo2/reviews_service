@@ -1,0 +1,48 @@
+Project Prompt: Research Review Publishing Platform
+
+I’m building a structured, extensible, and professionally compliant web platform that allows users to create, publish, and navigate in-depth reviews of academic papers. The system is designed to scale and eventually meet regulatory, copyright, and professional standards.
+
+The platform targets:
+	•	Investors seeking reliable summaries of technical innovations
+	•	LinkedIn readers and recruiters interested in research-backed insight
+	•	The general public looking for accessible, trustworthy knowledge distilled from complex academic sources
+
+⸻
+
+💡 Core System Features
+	•	A clean, searchable homepage that lists reviews with filters for domain, year, tags, and reading time
+	•	Review pages rendered from Markdown, viewable via SEO-friendly URLs (/mlp/reviews/[nid]/[slug])
+	•	Fuzzy full-text search using Fuse.js with live highlighting of results
+	•	Tag filtering, persistent query URLs, and categorized metadata
+	•	Static routes for legal and branding content (About, Imprint, Terms)
+	•	Clean-code architecture: built with SRP (Single Responsibility Principle), low coupling, modularity, and a routing system prepared for future extensibility
+
+⸻
+
+🗂 Data Architecture & Future-Proofing
+	•	Reviews are stored in structured JSON format, each supporting:
+	•	title, reviewSummary, authors, doi, domain, tags, version, lastUpdated, wordCount, estimatedReadingTime
+	•	Optional: reviewAuthor, impactMetrics, reuseLicense
+	•	Static storage is designed to evolve into dynamic backends (e.g., Supabase, Firestore, or custom REST/GraphQL APIs)
+	•	Markdown rendering is decoupled from storage logic, supporting clean transitions to CMS or DB-based models
+
+⸻
+
+📈 Planned Features (in roadmap or prototype)
+	•	Review versioning: track update history with changelogs and review audit trails
+	•	Submission flow: authenticated users can propose, edit, and publish reviews (moderation-ready)
+	•	User comments (optional): pending moderation policy and legal compliance
+	•	Author dashboard: role-based creation and editing for review contributors
+	•	Print-friendly and distraction-free reading modes
+	•	Accessibility compliance (WCAG), including screen-reader support and color-safe UI
+	•	Dark/light theme switch with system preference detection
+	•	Analytics-ready structure: track view counts, engagement metrics, and review popularity
+
+⸻
+
+⚖️ Professional & Legal Compliance
+	•	Built to respect academic copyright and fair-use limits
+	•	Every review links to its source paper (DOI, original title, publication, and authors)
+	•	Licensing metadata (license, reuse, sourceAttribution) is embedded for each review
+	•	Terms of Service, Privacy Policy, and Imprint routes included in structure
+	•	Architecture accommodates moderation workflows and role-based permissions

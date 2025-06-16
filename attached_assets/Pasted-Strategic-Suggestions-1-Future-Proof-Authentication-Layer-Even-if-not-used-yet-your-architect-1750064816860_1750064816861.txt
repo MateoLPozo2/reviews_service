@@ -1,0 +1,63 @@
+Strategic Suggestions
+
+1. 🔐 Future-Proof Authentication Layer
+
+Even if not used yet, your architecture should accommodate:
+	•	Role-based access control (Admin, Reviewer, Public)
+	•	Private/draft reviews for future editorial workflows
+	•	Suggested: Use Replit’s secrets or mock Auth module to simulate login logic for now.
+
+Why? Avoids rework later when you introduce author dashboards or submission flow.
+
+⸻
+
+2. 🧱 API Abstraction and Separation of Concerns
+	•	If you’re running backend and frontend in the same repo (monorepo), consider:
+	•	Separating the API logic behind an internal SDK or a services/ abstraction
+	•	Treating the Fuse.js search index as a generated asset (precomputed during build)
+
+Why? Keeps backend logic change-safe and cleanly decouples presentation from data access. Also helps migration to serverless or DB-backed APIs later.
+
+⸻
+
+3. 📦 Pagination or Lazy Loading for Review Lists
+
+Right now, with just 3 reviews, you’re fine. But:
+	•	Simulate scale with 100+ entries.
+	•	Implement pagination or infinite scroll with intersection observers.
+	•	Add a count of filtered results for better UX.
+
+Why? Fuse.js can slow down exponentially with more documents—pagination protects user experience and prepares you for DB-backed migration.
+
+⸻
+
+4. 🔍 Search Index Debugging & Analytics
+	•	Consider exposing a toggle for developers to visualize the Fuse.js index or matches.
+	•	Add simple analytics logging (search terms, filter use, time on page—can be localStorage- or API-based).
+
+Why? Helps you improve keyword mapping, gauge interest, and optimize UX by observing real usage patterns.
+
+⸻
+
+5. 📜 Review Version Display and Change Awareness
+	•	Even with static JSON, implement a visible version string and update date.
+	•	Offer a subtle “What’s changed?” button linking to changelog if available.
+
+Why? Builds trust and professionalism, and preps you for versioned content workflows later.
+
+⸻
+
+6. 🌐 Accessibility and Keyboard Navigation
+	•	Confirm contrast ratios meet WCAG standards.
+	•	Ensure all search/filter elements are reachable via keyboard nav (tab, arrow keys).
+	•	Add aria-* attributes for screen readers on dynamic components.
+
+Why? Accessibility is mandatory in professional/public services and helps long-term compliance.
+
+⸻
+
+7. 💾 Backup/Export Function
+	•	Consider a small “Export to PDF” or “Save Review” button.
+	•	Or allow batch export of reviews as .md or .json.
+
+Why? Adds practical value for recruiters, investors, or research groups and promotes trust in the tool.
