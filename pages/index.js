@@ -1,11 +1,21 @@
-import { useState } from "react";
+// pages/index.js
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import reviews from "@/data/reviews";
-import Fuse from "fuse.js"; // 🔍 Fuse.js import
+import Fuse from "fuse.js";
 
 export default function Home() {
+  const router = useRouter();
+  const { tag } = router.query;
+
   const [selectedTag, setSelectedTag] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // If tag is in URL, set it as selected
+  useEffect(() => {
+    if (tag) setSelectedTag(tag);
+  }, [tag]);
 
   const fuse = new Fuse(reviews, {
     keys: ["title", "authors", "content"],
@@ -27,8 +37,14 @@ export default function Home() {
   }
 
   const uniqueTags = [
-    ...new Set(filteredReviews.flatMap((r) => r.labels)),
+    ...new Set(reviews.flatMap((r) => r.labels)),
   ];
+
+  // Helper for tag button navigation
+  const handleTagClick = (tagName) => {
+    setSelectedTag(tagName);
+    router.push(`/?tag=${encodeURIComponent(tagName)}`);
+  };
 
   return (
     <div className="min-h-screen p-6">
@@ -46,7 +62,7 @@ export default function Home() {
       {/* Tag filter */}
       <div className="mb-6 flex flex-wrap gap-2">
         <button
-          onClick={() => setSelectedTag(null)}
+          onClick={() => handleTagClick(null)}
           className={`px-3 py-1 rounded-full text-sm ${
             selectedTag === null
               ? "bg-black text-white"
@@ -58,7 +74,7 @@ export default function Home() {
         {uniqueTags.map((tag) => (
           <button
             key={tag}
-            onClick={() => setSelectedTag(tag)}
+            onClick={() => handleTagClick(tag)}
             className={`px-3 py-1 rounded-full text-sm capitalize ${
               selectedTag === tag
                 ? "bg-black text-white"
@@ -92,12 +108,19 @@ export default function Home() {
             />
             <div className="flex flex-wrap gap-1 mt-1">
               {review.labels.map((label) => (
-                <span
+                // Tag chip now is clickable!
+                <button
                   key={label}
-                  className="px-2 py-0.5 text-xs bg-gray-100 rounded"
+                  type="button"
+                  onClick={() => handleTagClick(label)}
+                  className="px-2 py-0.5 text-xs bg-gray-100 rounded hover:bg-blue-200 transition"
+                  style={{
+                    border: selectedTag === label ? "1px solid #0070f3" : "",
+                    fontWeight: selectedTag === label ? "bold" : "normal",
+                  }}
                 >
                   {label}
-                </span>
+                </button>
               ))}
             </div>
           </li>
