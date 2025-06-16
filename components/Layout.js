@@ -1,5 +1,6 @@
 // components/Layout.js
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Layout({ children }) {
   return (
@@ -7,10 +8,11 @@ export default function Layout({ children }) {
       <header className="bg-gray-800 text-white px-6 py-4">
         <nav className="flex justify-between items-center">
           <div className="text-lg font-bold">Review Platform</div>
-          <div className="space-x-4">
+          <div className="space-x-4 flex items-center">
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
             <Link href="/imprint">Imprint</Link>
+            <ThemeToggle />
           </div>
         </nav>
       </header>

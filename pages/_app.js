@@ -1,11 +1,11 @@
 // pages/_app.js
+import { ThemeProvider } from 'next-themes';
 import '@/styles/globals.css';
-import Layout from '@/components/Layout';
 
 export default function App({ Component, pageProps }) {
   return (
-    <Layout>
+    <ThemeProvider attribute="class">
       <Component {...pageProps} />
-    </Layout>
+    </ThemeProvider>
   );
 }
