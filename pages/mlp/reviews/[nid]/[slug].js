@@ -35,7 +35,9 @@ export default function ReviewPage({ review }) {
         <div className="flex gap-2 flex-wrap">
           <ExportButton filename={review.slug} contentRef={contentRef} />
           <a
-            href={`data:text/markdown;charset=utf-8,${encodeURIComponent(review.content)}`}
+            href={`data:text/markdown;charset=utf-8,${encodeURIComponent(
+              review.content
+            )}`}
             download={`${review.slug}.md`}
             className="px-4 py-2 text-sm bg-gray-200 text-black rounded hover:bg-gray-300"
           >
