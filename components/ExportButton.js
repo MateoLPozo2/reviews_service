@@ -1,10 +1,11 @@
 // components/ExportButton.js
 import { useRef } from 'react';
-import html2pdf from 'html2pdf.js';
 
 export default function ExportButton({ filename = 'review', contentRef }) {
-  const handleExport = () => {
+  const handleExport = async () => {
     if (!contentRef.current) return;
+
+    const html2pdf = (await import('html2pdf.js')).default;
 
     const opt = {
       margin:       0.5,
