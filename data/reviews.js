@@ -1,3 +1,4 @@
+// data/reviews.js
 const reviews = [
   {
     nid: 121,
