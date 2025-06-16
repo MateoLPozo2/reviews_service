@@ -1,9 +1,34 @@
-// components/ReviewMeta.js
-export default function ReviewMeta({ createdAt, updatedAt, createdBy, updatedBy }) {
+// /components/ReviewMeta.js
+import ExportButton from "@/components/ExportButton";
+import { format } from "date-fns";
+
+function ReviewMeta({ review }) {
   return (
-    <div className="text-xs text-gray-500 mt-1">
-      <p>Created: {createdAt} by {createdBy}</p>
-      <p>Updated: {updatedAt} by {updatedBy}</p>
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-2 mb-4 text-sm text-gray-600 border-b pb-3">
+      <div className="space-y-1">
+        <p><strong>Authors:</strong> {review.authors}</p>
+        <p>
+          <strong>Created:</strong> {format(new Date(review.createdAt), 'PPP')}
+          {" · "}
+          <strong>Updated:</strong> {format(new Date(review.updatedAt), 'PPP')}
+        </p>
+        <div className="flex flex-wrap gap-1">
+          {review.labels.map(label => (
+            <span
+              key={label}
+              className="px-2 py-0.5 bg-gray-200 text-gray-800 rounded-full text-xs"
+            >
+              {label}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-3 sm:mt-0">
+        <ExportButton review={review} />
+      </div>
     </div>
   );
 }
+
+export default ReviewMeta;
