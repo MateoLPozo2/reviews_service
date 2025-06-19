@@ -1,0 +1,16 @@
+{
+ "nav": {
+ "home": "Inicio",
+ "about": "Acerca de",
+ "pie de imprenta": "Pie de imprenta",
+ "contact": "Contacto"
+ },
+ "toggle": {
+ "dark": "Dark Mode",
+ "light": "Light Mode"
+ },
+ "contact": {
+ "title": "Contacto",
+ "desc": "Para preguntas, comentarios o consultas de colaboración, no dudes en ponerte en contacto:"
+  }
+}
