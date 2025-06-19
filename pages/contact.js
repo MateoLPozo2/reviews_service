@@ -17,10 +17,10 @@ export default function Contact() {
           <p>
             <strong>Email:</strong>{" "}
             <a
-              href="mailto:lopezpozomateo+rs@example.com"
+              href="mailto:mlpcorporations+rss@gmail.com"
               className="underline text-blue-600"
             >
-              lopezpozomateo+rs@example.com
+              mlpcorporations+rs@gmail.com
             </a>
           </p>
           <p>

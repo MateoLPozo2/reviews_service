@@ -18,7 +18,8 @@ export default function Imprint() {
           <p>
             <strong>Name:</strong> Mateo Lopez Pozo <br />
             <strong>Address:</strong> Im Neugrabener Dorf 68, 21147, Germany <br />
-            <strong>Email:</strong> <a href="mailto:mlp-reviews@gmail.com" className="underline text-blue-600">mlp-reviews@gmail.com</a> <br />
+            <strong>Email:</strong> <a href="mailto:mlpcorporations+rs@gmail.com" 
+            className="underline text-blue-600">mlpcorporations+rs@gmail.com</a> <br />
             <strong>Phone:</strong> +49 123 456 7890 <br />
             <strong>Founder:</strong> Mateo Lopez Pozo
           </p>
