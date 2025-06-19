@@ -12,9 +12,9 @@ export default function Home() {
   const [selectedTag, setSelectedTag] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // If tag is in URL, set it as selected
+  // Set tag from URL if present
   useEffect(() => {
-    if (tag) setSelectedTag(tag);
+    setSelectedTag(tag ?? null);
   }, [tag]);
 
   const fuse = new Fuse(reviews, {
@@ -40,10 +40,14 @@ export default function Home() {
     ...new Set(reviews.flatMap((r) => r.labels)),
   ];
 
-  // Helper for tag button navigation
+  // Tag button navigation
   const handleTagClick = (tagName) => {
     setSelectedTag(tagName);
-    router.push(`/?tag=${encodeURIComponent(tagName)}`);
+    if (tagName) {
+      router.push(`/?tag=${encodeURIComponent(tagName)}`);
+    } else {
+      router.push(`/`);
+    }
   };
 
   return (
@@ -53,7 +57,7 @@ export default function Home() {
       {/* Search bar */}
       <input
         type="text"
-        placeholder="Search by title..."
+        placeholder="Search by title, author, or content..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         className="w-full max-w-md mb-4 px-3 py-2 border border-gray-300 rounded shadow-sm"
@@ -108,15 +112,18 @@ export default function Home() {
             />
             <div className="flex flex-wrap gap-1 mt-1">
               {review.labels.map((label) => (
-                // Tag chip now is clickable!
+                // Tag chip is clickable
                 <button
                   key={label}
                   type="button"
                   onClick={() => handleTagClick(label)}
-                  className="px-2 py-0.5 text-xs bg-gray-100 rounded hover:bg-blue-200 transition"
+                  className={`px-2 py-0.5 text-xs rounded transition ${
+                    selectedTag === label
+                      ? "bg-blue-600 text-white font-bold"
+                      : "bg-gray-100 hover:bg-blue-200 text-black"
+                  }`}
                   style={{
                     border: selectedTag === label ? "1px solid #0070f3" : "",
-                    fontWeight: selectedTag === label ? "bold" : "normal",
                   }}
                 >
                   {label}
