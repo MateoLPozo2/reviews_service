@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 export default function Layout({ children }) {
   const router = useRouter();
-  const { locale, locales, asPath } = router;
+  const { locale, locales = [], asPath } = router;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -18,16 +18,16 @@ export default function Layout({ children }) {
             <Link href="/imprint" locale={locale}>Imprint</Link>
             <Link href="/contact" locale={locale}>Contact</Link>
             <ThemeToggle />
-            {/* Language Switcher (basic, replace with dropdown/accordion later) */}
+            {/* Language Switcher */}
             <select
               value={locale}
               onChange={e =>
                 router.push(asPath, asPath, { locale: e.target.value })
               }
-              className="ml-2 px-2 py-1 rounded text-black"
+              className="ml-2 px-2 py-1 rounded text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700"
               aria-label="Change language"
             >
-              {locales && locales.map(lng => (
+              {locales.map(lng => (
                 <option key={lng} value={lng}>
                   {lng.toUpperCase()}
                 </option>
