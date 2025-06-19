@@ -37,7 +37,11 @@ export default function Imprint() {
         <section>
           <h2 className="text-xl font-semibold mb-1">Liability for Content</h2>
           <p>
-            The contents of our website have been created with the utmost care. However, we cannot guarantee the contents' accuracy, completeness or topicality. According to statutory provisions, we are responsible for our own content on these web pages. In this matter, please note that we are not obliged to monitor the transmitted or saved information of third parties, or investigate circumstances pointing to illegal activity. Our obligations to remove or block the use of information under generally applicable laws remain unaffected by this as per §§ 8 to 10 of the Telemedia Act (TMG).
+            The contents of our website have been created with the utmost care. 
+            However, we cannot guarantee the contents&apos; accuracy, completeness or topicality.
+            According to statutory provisions, we are responsible for our own content on these web pages. 
+            In this matter, please note that we are not obliged to monitor the transmitted or saved information of third parties, or investigate circumstances pointing to illegal activity. 
+            Our obligations to remove or block the use of information under generally applicable laws remain unaffected by this as per §§ 8 to 10 of the Telemedia Act (TMG).
           </p>
         </section>
 
