@@ -1,5 +1,4 @@
 // pages/_app.js
-// pages/_app.js
 import Layout from "@/components/Layout";
 import "@/styles/globals.css";
 

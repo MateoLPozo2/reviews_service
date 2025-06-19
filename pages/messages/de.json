@@ -1,0 +1,16 @@
+{
+ "nav": {
+ "home": "Home",
+ "about": "About",
+ "imprint": "Impressum",
+ "Kontakt": "Kontakt"
+ },
+ "toggle": {
+ "dark": "Dark Mode",
+ "light": "Heller Modus"
+ },
+ "Kontakt": {
+ "title": "Kontakt",
+ "desc": "Für Fragen, Feedback oder Anfragen zur Zusammenarbeit können Sie sich gerne an uns wenden:"
+  }
+}

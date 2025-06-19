@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "imprint": "Imprint",
+    "contact": "Contact"
+  },
+  "toggle": {
+    "dark": "Dark Mode",
+    "light": "Light Mode"
+  },
+  "contact": {
+    "title": "Contact",
+    "desc": "For questions, feedback, or collaboration inquiries, feel free to reach out:"
+  }
+}
