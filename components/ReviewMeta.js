@@ -22,7 +22,7 @@ function ReviewMeta({ review, contentRef }) {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-2 mb-4 text-sm text-gray-600 border-b pb-3">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-2 mb-4 text-sm text-gray-600 border-b pb-3 gap-4">
       <div className="space-y-1">
         <p>
           <strong>Authors:</strong> {review.authors}
@@ -42,10 +42,8 @@ function ReviewMeta({ review, contentRef }) {
             </span>
           ))}
         </div>
-      </div>
 
-      <div className="mt-3 sm:mt-0 space-y-2 text-right">
-        <div className="flex gap-2 flex-wrap justify-end">
+        <div className="mt-3 flex flex-wrap gap-2">
           <ExportButton filename={review.slug} contentRef={contentRef} />
           <a
             href={`data:text/markdown;charset=utf-8,${encodeURIComponent(
@@ -57,10 +55,12 @@ function ReviewMeta({ review, contentRef }) {
             Download .md
           </a>
         </div>
+      </div>
 
+      <div className="mt-3 sm:mt-0 space-y-2 text-right">
         <button
           onClick={() => setShowUpload(!showUpload)}
-          className="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+          className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
         >
           {showUpload ? "Cancel" : "Upload Image"}
         </button>
