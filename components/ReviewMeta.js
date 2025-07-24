@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { useState } from "react";
 import ExportButton from "./ExportButton";
 
-function ReviewMeta({ review }) {
+function ReviewMeta({ review, contentRef }) {
   const [showUpload, setShowUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
@@ -45,9 +45,22 @@ function ReviewMeta({ review }) {
       </div>
 
       <div className="mt-3 sm:mt-0 space-y-2 text-right">
+        <div className="flex gap-2 flex-wrap justify-end">
+          <ExportButton filename={review.slug} contentRef={contentRef} />
+          <a
+            href={`data:text/markdown;charset=utf-8,${encodeURIComponent(
+              review.content
+            )}`}
+            download={`${review.slug}.md`}
+            className="px-4 py-2 text-sm bg-gray-200 text-black rounded hover:bg-gray-300"
+          >
+            Download .md
+          </a>
+        </div>
+
         <button
           onClick={() => setShowUpload(!showUpload)}
-          className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+          className="mt-2 px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
         >
           {showUpload ? "Cancel" : "Upload Image"}
         </button>
@@ -68,17 +81,6 @@ function ReviewMeta({ review }) {
             )}
           </div>
         )}
-
-        <div className="flex flex-col sm:flex-row sm:justify-end gap-2">
-          <a
-            href={`data:text/markdown;charset=utf-8,${encodeURIComponent(review.content)}`}
-            download={`${review.slug}.md`}
-            className="px-4 py-2 text-sm bg-gray-200 text-black rounded hover:bg-gray-300"
-          >
-            Download .md
-          </a>
-          <ExportButton filename={review.slug} contentRef={review.contentRef} />
-        </div>
       </div>
     </div>
   );
