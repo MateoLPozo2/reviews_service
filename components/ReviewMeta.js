@@ -1,8 +1,25 @@
 // /components/ReviewMeta.js
-import ExportButton from "@/components/ExportButton";
 import { format } from "date-fns";
+import { useState } from "react";
 
 function ReviewMeta({ review }) {
+  const [showUpload, setShowUpload] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
+    }
+  };
+
+  const handleUpload = () => {
+    alert(`Uploaded: ${selectedFile.name}`);
+    setShowUpload(false);
+  };
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-2 mb-4 text-sm text-gray-600 border-b pb-3">
       <div className="space-y-1">
@@ -26,8 +43,30 @@ function ReviewMeta({ review }) {
         </div>
       </div>
 
-      <div className="mt-3 sm:mt-0">
-        <ExportButton review={review} />
+      <div className="mt-3 sm:mt-0 space-y-2 text-right">
+        <button
+          onClick={() => setShowUpload(!showUpload)}
+          className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+        >
+          {showUpload ? "Cancel" : "Upload Image"}
+        </button>
+
+        {showUpload && (
+          <div className="mt-2 space-y-2">
+            <input type="file" accept="image/png, image/jpeg" onChange={handleFileChange} />
+            {previewUrl && (
+              <img src={previewUrl} alt="preview" className="h-32 rounded shadow" />
+            )}
+            {selectedFile && (
+              <button
+                onClick={handleUpload}
+                className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700"
+              >
+                Confirm Upload
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
