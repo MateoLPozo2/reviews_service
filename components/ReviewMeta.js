@@ -7,6 +7,7 @@ function ReviewMeta({ review, contentRef }) {
   const [showUpload, setShowUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
+  const [uploadedPath, setUploadedPath] = useState("");
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -16,8 +17,27 @@ function ReviewMeta({ review, contentRef }) {
     }
   };
 
-  const handleUpload = () => {
-    alert(`Uploaded: ${selectedFile.name}`);
+  const handleUpload = async () => {
+    if (!selectedFile) return;
+
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("Upload failed");
+
+      const result = await response.json();
+      alert(`Uploaded: ${selectedFile.name}`);
+      setUploadedPath(result.path); // new state to store public path
+    } catch (error) {
+      alert("Error uploading file.");
+    }
+
     setShowUpload(false);
   };
 
@@ -45,15 +65,6 @@ function ReviewMeta({ review, contentRef }) {
 
         <div className="mt-3 flex flex-wrap gap-2">
           <ExportButton filename={review.slug} contentRef={contentRef} />
-          <a
-            href={`data:text/markdown;charset=utf-8,${encodeURIComponent(
-              review.content
-            )}`}
-            download={`${review.slug}.md`}
-            className="px-4 py-2 text-sm bg-gray-200 text-black rounded hover:bg-gray-300"
-          >
-            Download .md
-          </a>
         </div>
       </div>
 
@@ -78,6 +89,12 @@ function ReviewMeta({ review, contentRef }) {
               >
                 Confirm Upload
               </button>
+            )}
+            {uploadedPath && (
+              <div className="flex items-center space-x-2 mt-2">
+                <img src={uploadedPath} alt="uploaded" className="w-6 h-6 object-cover rounded" />
+                <span className="text-xs text-gray-500">{uploadedPath}</span>
+              </div>
             )}
           </div>
         )}
