@@ -2,6 +2,7 @@
 import { format } from "date-fns";
 import { useState } from "react";
 import ExportButton from "./ExportButton";
+import Image from 'next/image';
 
 function ReviewMeta({ review, contentRef }) {
   const [showUpload, setShowUpload] = useState(false);
@@ -78,9 +79,19 @@ function ReviewMeta({ review, contentRef }) {
 
         {showUpload && (
           <div className="mt-2 space-y-2">
-            <input type="file" accept="image/png, image/jpeg" onChange={handleFileChange} />
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={handleFileChange}
+            />
             {previewUrl && (
-              <img src={previewUrl} alt="preview" className="h-32 rounded shadow" />
+              <Image
+                src={previewUrl}
+                alt="preview"
+                width={128}
+                height={128}
+                className="rounded shadow"
+              />
             )}
             {selectedFile && (
               <button
@@ -92,7 +103,11 @@ function ReviewMeta({ review, contentRef }) {
             )}
             {uploadedPath && (
               <div className="flex items-center space-x-2 mt-2">
-                <img src={uploadedPath} alt="uploaded" className="w-6 h-6 object-cover rounded" />
+                <img
+                  src={uploadedPath}
+                  alt="uploaded"
+                  className="w-6 h-6 object-cover rounded"
+                />
                 <span className="text-xs text-gray-500">{uploadedPath}</span>
               </div>
             )}

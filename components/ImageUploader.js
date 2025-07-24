@@ -1,5 +1,6 @@
 // components/ImageUploader.js
 import { useState } from "react";
+import Image from 'next/image';
 
 export default function ImageUploader({ onFileSelect }) {
   const [preview, setPreview] = useState(null);
@@ -31,10 +32,12 @@ export default function ImageUploader({ onFileSelect }) {
       {error && <p className="text-red-600 text-sm">{error}</p>}
       {preview && (
         <div className="mt-2">
-          <img
-            src={preview}
-            alt="Preview"
-            className="w-32 h-32 object-cover border rounded"
+          <Image
+            src={previewUrl}
+            alt="preview"
+            width={128}
+            height={128}
+            className="rounded shadow"
           />
         </div>
       )}
