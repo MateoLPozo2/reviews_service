@@ -1,6 +1,7 @@
 // /components/ReviewMeta.js
 import { format } from "date-fns";
 import { useState } from "react";
+import ExportButton from "./ExportButton";
 
 function ReviewMeta({ review }) {
   const [showUpload, setShowUpload] = useState(false);
@@ -67,6 +68,17 @@ function ReviewMeta({ review }) {
             )}
           </div>
         )}
+
+        <div className="flex flex-col sm:flex-row sm:justify-end gap-2">
+          <a
+            href={`data:text/markdown;charset=utf-8,${encodeURIComponent(review.content)}`}
+            download={`${review.slug}.md`}
+            className="px-4 py-2 text-sm bg-gray-200 text-black rounded hover:bg-gray-300"
+          >
+            Download .md
+          </a>
+          <ExportButton filename={review.slug} contentRef={review.contentRef} />
+        </div>
       </div>
     </div>
   );

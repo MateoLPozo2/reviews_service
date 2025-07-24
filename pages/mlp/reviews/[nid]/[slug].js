@@ -32,18 +32,7 @@ export default function ReviewPage({ review }) {
     <div className="p-6 space-y-4">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <h1 className="text-3xl font-bold">{review.title}</h1>
-        <div className="flex gap-2 flex-wrap">
-          <ExportButton filename={review.slug} contentRef={contentRef} />
-          <a
-            href={`data:text/markdown;charset=utf-8,${encodeURIComponent(
-              review.content
-            )}`}
-            download={`${review.slug}.md`}
-            className="px-4 py-2 text-sm bg-gray-200 text-black rounded hover:bg-gray-300"
-          >
-            Download .md
-          </a>
-        </div>
+        <div className="flex gap-2 flex-wrap" />
       </div>
       <div
         ref={contentRef}
