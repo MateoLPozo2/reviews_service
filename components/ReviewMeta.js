@@ -34,7 +34,7 @@ function ReviewMeta({ review, contentRef }) {
 
       const result = await response.json();
       alert(`Uploaded: ${selectedFile.name}`);
-      setUploadedPath(result.path); // new state to store public path
+      setUploadedPath(`/uploads/${selectedFile.name}`); // new state to store public path
     } catch (error) {
       alert("Error uploading file.");
     }
@@ -103,10 +103,12 @@ function ReviewMeta({ review, contentRef }) {
             )}
             {uploadedPath && (
               <div className="flex items-center space-x-2 mt-2">
-                <img
+                <Image
                   src={uploadedPath}
                   alt="uploaded"
-                  className="w-6 h-6 object-cover rounded"
+                  width={24}
+                  height={24}
+                  className="object-cover rounded"
                 />
                 <span className="text-xs text-gray-500">{uploadedPath}</span>
               </div>

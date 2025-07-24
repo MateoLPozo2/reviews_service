@@ -12,6 +12,11 @@ export const config = {
 
 export default function handler(req, res) {
   if (req.method === 'POST') {
+    // ❗ Vercel is read-only — block upload
+    if (process.env.VERCEL === '1') {
+      return res.status(500).json({ error: 'File upload not supported in Vercel. Please use an external service like Cloudinary.' });
+    }
+
     const uploadDir = path.join(process.cwd(), 'public/uploads');
 
     if (!fs.existsSync(uploadDir)) {
@@ -32,7 +37,8 @@ export default function handler(req, res) {
         return;
       }
 
-      const uploadedFile = files.file[0];
+      const uploaded = files.file;
+      const uploadedFile = Array.isArray(uploaded) ? uploaded[0] : uploaded;
       const relativePath = `/uploads/${path.basename(uploadedFile.filepath)}`;
       res.status(200).json({ path: relativePath });
     });
